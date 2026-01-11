@@ -1,38 +1,202 @@
-.App {
-  text-align: center;
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #f5f5f7;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* App wrapper: full viewport height */
+.app-wrapper {
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  background: #f5f5f7;
+  overflow: hidden;
+}
+
+/* Navbar: full width, sticky on top */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #007aff; /* ChatGPT-style blue */
+  color: white;
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.navbar h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.navbar-right button {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 15px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.navbar-right button:hover {
+  transform: scale(1.1);
+}
+
+/* Chat container: centered, fills remaining space */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;       /* wider chat window */
+  width: 95%;              /* almost full width */
+  margin: 20px auto 20px;  /* top/bottom space from navbar and page edges */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* Messages: scrollable */
+.messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Scrollbar styling */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+/* Individual message bubbles */
+.message {
+  display: flex;
+}
+
+.message.user {
+  justify-content: flex-end;
+}
+
+.message.bot {
+  justify-content: flex-start;
+}
+
+.bubble {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: 65%;
+  word-wrap: break-word;
+  line-height: 1.4;
+  font-size: 15px;
+}
+
+/* User message bubble */
+.user .bubble {
+  background: #007aff;
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+/* Bot message bubble */
+.bot .bubble {
+  background: #f1f0f0;
+  color: #000;
+  border-bottom-left-radius: 0;
+}
+
+/* Typing indicator bubble */
+.typing {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Chat input area */
+.chat-input {
+  display: flex;
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+  gap: 15px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.chat-input input:disabled {
+  background: #f0f0f0;
+}
+
+.chat-input button {
+  background: #007aff;
+  border: none;
+  color: white;
+  padding: 0 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+/* Icon buttons (+ and send) */
+.icon-btn {
+  background: #007aff;
+  border: none;
   color: white;
+  width: 48px;   /* slightly bigger */
+  height: 48px;  /* slightly bigger */
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.App-link {
-  color: #61dafb;
+/* Space between + icon and input */
+.chat-input .icon-btn:first-child {
+  margin-right: 12px;  /* space between + and input */
+  gap: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.icon-btn:disabled {
+  background: #a0cfff;
+  cursor: not-allowed;
+}
+
+
+/* Typing animation (optional 3-dot) */
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+.typing::after {
+  content: '...';
+  display: inline-block;
+  animation: blink 1.4s infinite;
 }
