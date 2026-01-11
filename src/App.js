@@ -4,7 +4,7 @@ import "./App.css"
 
 function App() {
   return (
-    <div className="app-wrapper">   {/* <-- top-level wrapper */}
+    <div className="app-wrapper">   
       <Navbar />
       <ChatContainer />
     </div>
